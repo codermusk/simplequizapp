@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:quizapp/quiz.dart';
+import 'package:quizapp/result.dart';
+import './question.dart';
+import './answers.dart';
+
+void main() {
+  runApp(quizapp());
+}
+
+class quizapp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _myApp();
+  }
+}
+
+class _myApp extends State<quizapp> {
+  final _qs = const [
+    {
+      'questionText': 'hey how are you bro',
+      'answers': ['iam fine', 'not good', 'good'],
+    },
+    {
+      'questionText': 'your favourite food',
+      'answers': ['chicken b', 'mutton b', 'shawarma'],
+    }
+  ];
+  var _questionIndex = 0;
+  void _answers() {
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+    if (_questionIndex < _qs.length) {
+      print('answer is here');
+    } else {
+      print('no answers');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('QUIZ APP'),
+          ),
+          body: _questionIndex < _qs.length
+              ? Quiz(
+                  answerquestion: _answers,
+                  questionindex: _questionIndex,
+                  questions: _qs,
+                )
+              : Result()),
+    );
+  }
+}
